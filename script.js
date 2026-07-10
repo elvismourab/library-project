@@ -26,3 +26,22 @@ function Book(
 function addBookToLibrary() {
     // take params, create a book then store it in the array
 }
+
+function renderBooks() {
+    let html = '';
+    for (const book of myLibrary) {
+        html +=
+            `<div class="card" data-id="${book.id}">
+            <h2>${book.title}</h2>
+            <ul>
+                <li>${book.author}</li>
+                <li>${book.isRead}</li>
+            </ul>
+        </div>`;
+    }
+
+    const bookshelf = document.getElementById("bookshelf");
+    bookshelf.innerHTML = html; // xss !!!
+}
+
+renderBooks();
