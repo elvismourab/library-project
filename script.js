@@ -36,6 +36,7 @@ function renderBooks() {
             <ul>
                 <li>${book.author}</li>
                 <li>${book.isRead}</li>
+                <li>${book.number}</li>
             </ul>
         </div>`;
     }
