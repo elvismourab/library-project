@@ -44,20 +44,24 @@ function addBookToLibrary() {
 }
 
 function removeBookFromLibrary(e) {
-    const id = e.target.closest(".card").dataset.id;
-    const index = myLibrary.findIndex(book => book.id === id);
-    myLibrary.splice(index, 1);
-    renderBooks();
+    if (window.confirm("Are you sure you want to remove it from the library? This action is irreversible.")) {
+        const id = e.target.closest(".card").dataset.id;
+        const index = myLibrary.findIndex(book => book.id === id);
+        myLibrary.splice(index, 1);
+        renderBooks();
+    }
 }
 
 function readBookFromLibrary(e) {
-    const id = e.target.closest(".card").dataset.id;
-    const index = myLibrary.findIndex(book => book.id === id);
-    if (myLibrary[index].isRead) {
-        alert("You already read this book!");
-    } else {
-        myLibrary[index].isRead = true
-        renderBooks();
+    if (window.confirm("Are you sure you want to mark this book as read? This action is irreversible.")) {
+        const id = e.target.closest(".card").dataset.id;
+        const index = myLibrary.findIndex(book => book.id === id);
+        if (myLibrary[index].isRead) {
+            alert("You already read this book!");
+        } else {
+            myLibrary[index].isRead = true
+            renderBooks();
+        }
     }
 }
 

@@ -15,18 +15,23 @@
 }
 
 header {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: space-between;
     background-color: var(--color2);
     padding: 1rem 4rem;
+
+    h1 {
+        font-size: 4rem;
+    }
 }
 
 #show-dialog {
     align-self: flex-end;
     padding: 1rem 2rem;
     border-radius: 2rem;
-    cursor: pointer;
-    font-weight: bold;
+    width: 6rem;
 
     &&:hover {
         background-color: var(--color3);
@@ -67,16 +72,17 @@ header {
     margin: 1rem;
 }
 
+.icon {
+    width: 10%;
+    margin-left: 1rem;
+
+    &&:hover {
+        cursor: pointer;
+    }
+}
+
 .book-actions {
     text-align: end;
-
-    .icon {
-        width: 10%;
-
-        &&:hover {
-            cursor: pointer;
-        }
-    }
 
     :nth-child(1):hover {
         background-color: var(--color2);
