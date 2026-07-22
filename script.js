@@ -1,17 +1,4 @@
-const myLibrary = [
-    { id: crypto.randomUUID(), title: "The Hobbit", author: "J.R.R. Tolkien", pages: 310, isRead: true },
-    { id: crypto.randomUUID(), title: "Neuromancer", author: "William Gibson", pages: 271, isRead: false },
-    { id: crypto.randomUUID(), title: "Crime and Punishment", author: "Fyodor Dostoevsky", pages: 671, isRead: false },
-    { id: crypto.randomUUID(), title: "Dom Casmurro", author: "Machado de Assis", pages: 256, isRead: true },
-    { id: crypto.randomUUID(), title: "1984", author: "George Orwell", pages: 328, isRead: false },
-];
-
-function Book(
-    title,
-    author,
-    pages,
-    isRead,
-) {
+function Book(title, author, pages, isRead) {
     if (!new.target) {
         throw new Error("You must use the 'new' operator to call the constructor");
     }
@@ -21,11 +8,19 @@ function Book(
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
-
-    this.archieve = function () {
-        myLibrary.push(this);
-    }
 }
+
+Book.prototype.toggleRead = function () {
+    this.isRead = !this.isRead;
+};
+
+const myLibrary = [
+    new Book("The Hobbit", "J.R.R. Tolkien", 310, true),
+    new Book("Neuromancer", "William Gibson", 271, false),
+    new Book("Crime and Punishment", "Fyodor Dostoevsky", 671, false),
+    new Book("Dom Casmurro", "Machado de Assis", 256, true),
+    new Book("1984", "George Orwell", 328, false),
+];
 
 function addBookToLibrary() {
     const title = document.getElementById("book-title").value;
@@ -33,73 +28,99 @@ function addBookToLibrary() {
     const pages = document.getElementById("pages").value;
     const isRead = document.getElementById("is-read").checked;
 
-    const newBook = new Book(title, author, pages, isRead);
-    newBook.archieve();
+    const newBook = new Book(title, author, Number(pages), isRead);
+    myLibrary.push(newBook);
     renderBooks();
 }
 
-function removeBookFromLibrary(e) {
+function removeBookFromLibrary(id) {
     if (window.confirm("Are you sure you want to remove it from the library? This action is irreversible.")) {
-        const id = e.target.closest(".card").dataset.id;
         const index = myLibrary.findIndex(book => book.id === id);
-        myLibrary.splice(index, 1);
-        renderBooks();
-    }
-}
-
-function readBookFromLibrary(e) {
-    if (window.confirm("Are you sure you want to mark this book as read? This action is irreversible.")) {
-        const id = e.target.closest(".card").dataset.id;
-        const index = myLibrary.findIndex(book => book.id === id);
-        if (myLibrary[index].isRead) {
-            alert("You already read this book!");
-        } else {
-            myLibrary[index].isRead = true
+        if (index !== -1) {
+            myLibrary.splice(index, 1);
             renderBooks();
         }
     }
 }
 
 function renderBooks() {
-    let html = '';
-    for (const book of myLibrary) {
-        let readStatus = 'NO';
-        let markAsReadIcon = '<img src="icons/book-check.svg" class="icon read-book" alt="Mark as read" title="Mark as read">';
-        if (book.isRead) {
-            readStatus = 'YES';
-            markAsReadIcon = '<div></div>';
-        }
-        html +=
-            `<div class="card" data-id="${book.id}">
-                <h2>${book.title}</h2>
-                <ul>
-                    <li>Author: ${book.author}</li>
-                    <li>Read? ${readStatus}</li>
-                    <li>Pages: ${book.pages}</li>
-                </ul>
-                <div class="book-actions">
-                    ${markAsReadIcon}
-                    <img src="icons/book-remove.svg" class="icon remove-book" alt="Delete from library" title="Delete from library">
-                </div>
-            </div>`;
-    }
-
     const bookshelf = document.getElementById("bookshelf");
-    bookshelf.innerHTML = html; // xss !!!
+    bookshelf.textContent = '';
 
-    const deleteBtn = document.getElementsByClassName("remove-book")
-    for (const removeBook of deleteBtn) {
-        removeBook.addEventListener("click", (e) => {
-            removeBookFromLibrary(e);
-        })
-    }
+    for (const book of myLibrary) {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.dataset.id = book.id;
 
-    const readBtn = document.getElementsByClassName("read-book")
-    for (const readBook of readBtn) {
-        readBook.addEventListener("click", (e) => {
-            readBookFromLibrary(e);
-        })
+        const h2 = document.createElement("h2");
+        h2.textContent = book.title;
+
+        const ul = document.createElement("ul");
+
+        const liAuthor = document.createElement("li");
+        liAuthor.textContent = `Author: ${book.author}`;
+
+        const liRead = document.createElement("li");
+        liRead.textContent = `Read? ${book.isRead ? 'YES' : 'NO'}`;
+
+        const liPages = document.createElement("li");
+        liPages.textContent = `Pages: ${book.pages}`;
+
+        ul.appendChild(liAuthor);
+        ul.appendChild(liRead);
+        ul.appendChild(liPages);
+
+        const actionsDiv = document.createElement("div");
+        actionsDiv.classList.add("book-actions");
+
+        const markAsReadIcon = document.createElement("img");
+        markAsReadIcon.src = "icons/book-check.svg";
+        markAsReadIcon.classList.add("icon", "read-book");
+        if (book.isRead) {
+            markAsReadIcon.classList.add("is-read");
+        }
+        markAsReadIcon.alt = book.isRead ? "Mark as unread" : "Mark as read";
+        markAsReadIcon.title = book.isRead ? "Mark as unread" : "Mark as read";
+
+        const removeIcon = document.createElement("img");
+        removeIcon.src = "icons/book-remove.svg";
+        removeIcon.classList.add("icon", "remove-book");
+        removeIcon.alt = "Delete from library";
+        removeIcon.title = "Delete from library";
+
+        actionsDiv.appendChild(markAsReadIcon);
+        actionsDiv.appendChild(removeIcon);
+
+        card.appendChild(h2);
+        card.appendChild(ul);
+        card.appendChild(actionsDiv);
+
+        bookshelf.appendChild(card);
     }
+}
+
+function initEvents() {
+    const bookshelf = document.getElementById("bookshelf");
+
+    // Event delegation on bookshelf container
+    bookshelf.addEventListener("click", (e) => {
+        const removeBtn = e.target.closest(".remove-book");
+        const readBtn = e.target.closest(".read-book");
+        const card = e.target.closest(".card");
+
+        if (!card) return;
+        const id = card.dataset.id;
+        const book = myLibrary.find(b => b.id === id);
+
+        if (removeBtn) {
+            removeBookFromLibrary(id);
+        } else if (readBtn && book) {
+            book.toggleRead();
+            renderBooks();
+        }
+    });
+
+    renderModal();
 }
 
 function renderModal() {
@@ -110,11 +131,11 @@ function renderModal() {
 
     showDialog.addEventListener("click", () => {
         modalDialog.showModal();
-    })
+    });
 
     modalDialog.addEventListener("close", () => {
         clearModal(modalDialog);
-    })
+    });
 
     cancelBtn.addEventListener("click", () => {
         clearModal(modalDialog);
@@ -124,7 +145,7 @@ function renderModal() {
         e.preventDefault();
         addBookToLibrary();
         clearModal(modalDialog);
-    })
+    });
 }
 
 function clearModal(modalDialog) {
@@ -133,4 +154,4 @@ function clearModal(modalDialog) {
 }
 
 renderBooks();
-renderModal();
+initEvents();

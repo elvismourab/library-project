@@ -27,14 +27,25 @@ header {
     }
 }
 
+.btn-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
 #show-dialog {
     align-self: flex-end;
-    padding: 1rem 2rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 2rem;
-    width: 6rem;
 
-    &&:hover {
+    &:hover {
         background-color: var(--clr-bg2);
+    }
+
+    .icon {
+        width: 3rem;
+        margin-left: 0;
     }
 }
 
@@ -48,7 +59,6 @@ header {
     h2 {
         background-color: var(--clr-greenish);
         padding: 1rem 2rem;
-
     }
 }
 
@@ -57,18 +67,19 @@ header {
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     gap: 2rem;
     margin: 4rem;
-    height: 14rem;
+    min-height: 14rem;
 }
 
 .card {
     display: grid;
     align-content: space-between;
+    min-height: 12rem;
     border-radius: 1rem;
     border-left: 1rem solid var(--clr-bookmark);
     padding: 1rem 2rem;
-    box-shadow: 5px 5px 10px 0px rgb(0, 0, 0, 0.6);
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.6);
 
-    &&:hover {
+    &:hover {
         background-color: var(--clr-bg);
     }
 }
@@ -91,10 +102,11 @@ header {
 }
 
 .icon {
-    width: 10%;
+    width: 2rem;
+    height: 2rem;
     margin-left: 1rem;
 
-    &&:hover {
+    &:hover {
         cursor: pointer;
     }
 }
@@ -102,11 +114,13 @@ header {
 .book-actions {
     text-align: end;
 
-    :nth-child(1):hover {
+    .icon:nth-child(1):hover {
         background-color: var(--clr-greenish);
+        border-radius: 50%;
     }
 
-    :nth-child(2):hover {
+    .icon:nth-child(2):hover {
         background-color: var(--clr-danger);
+        border-radius: 50%;
     }
 }
