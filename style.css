@@ -1,9 +1,9 @@
 :root {
-    --color1: #000000;
-    --color2: #9f111b;
-    --color3: #b11623;
-    --color4: #292c37;
-    --color5: #cccccc;
+    --color1: #75372d;
+    --color2: #928854;
+    --color3: #96a782;
+    --color4: #d4ce9e;
+    --color5: #d8523d;
 }
 
 * {
@@ -29,7 +29,7 @@ header {
     font-weight: bold;
 
     &&:hover {
-        background-color: var(--color5);
+        background-color: var(--color3);
     }
 }
 
@@ -47,13 +47,15 @@ header {
 }
 
 .card {
+    display: grid;
+    align-content: space-between;
     border-radius: 1rem;
-    border-left: 1rem solid var(--color4);
+    border-left: 1rem solid var(--color1);
     padding: 1rem 2rem;
     box-shadow: 5px 5px 10px 0px rgb(0, 0, 0, 0.6);
 
     &&:hover {
-        background-color: var(--color5);
+        background-color: var(--color4);
     }
 }
 
@@ -63,4 +65,24 @@ header {
     align-items: flex-end;
     gap: 1rem;
     margin: 1rem;
+}
+
+.book-actions {
+    text-align: end;
+
+    .icon {
+        width: 10%;
+
+        &&:hover {
+            cursor: pointer;
+        }
+    }
+
+    :nth-child(1):hover {
+        background-color: var(--color2);
+    }
+
+    :nth-child(2):hover {
+        background-color: var(--color5);
+    }
 }

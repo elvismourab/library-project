@@ -64,17 +64,23 @@ function readBookFromLibrary(e) {
 function renderBooks() {
     let html = '';
     for (const book of myLibrary) {
+        let readStatus = 'NO';
+        let markAsReadIcon = '<img src="icons/book-check.svg" class="icon read-book" alt="Mark as read" title="Mark as read">';
+        if (book.isRead) {
+            readStatus = 'YES';
+            markAsReadIcon = '<div></div>';
+        }
         html +=
             `<div class="card" data-id="${book.id}">
                 <h2>${book.title}</h2>
                 <ul>
                     <li>Author: ${book.author}</li>
-                    <li>Read? ${book.isRead ? 'YES' : 'NO'}</li>
+                    <li>Read? ${readStatus}</li>
                     <li>Pages: ${book.pages}</li>
                 </ul>
                 <div class="book-actions">
-                    <button class="read-book">Mark as read</button>
-                    <button class="remove-book">Delete</button>
+                    ${markAsReadIcon}
+                    <img src="icons/book-remove.svg" class="icon remove-book" alt="Delete from library" title="Delete from library">
                 </div>
             </div>`;
     }
