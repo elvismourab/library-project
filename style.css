@@ -1,9 +1,9 @@
 :root {
-    --color1: #75372d;
-    --color2: #928854;
-    --color3: #96a782;
-    --color4: #d4ce9e;
-    --color5: #d8523d;
+    --clr-bookmark: #75372d;
+    --clr-bg2: #96a782;
+    --clr-bg: #d4ce9e;
+    --clr-greenish: #928854;
+    --clr-danger: #d8523d;
 }
 
 * {
@@ -19,7 +19,7 @@ header {
     grid-auto-flow: column;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--color2);
+    background-color: var(--clr-greenish);
     padding: 1rem 4rem;
 
     h1 {
@@ -34,13 +34,22 @@ header {
     width: 6rem;
 
     &&:hover {
-        background-color: var(--color3);
+        background-color: var(--clr-bg2);
     }
 }
 
 #modal-dialog {
     margin: auto;
-    padding: 1rem;
+}
+
+#add-book {
+    font-weight: bold;
+
+    h2 {
+        background-color: var(--clr-greenish);
+        padding: 1rem 2rem;
+
+    }
 }
 
 #bookshelf {
@@ -55,12 +64,12 @@ header {
     display: grid;
     align-content: space-between;
     border-radius: 1rem;
-    border-left: 1rem solid var(--color1);
+    border-left: 1rem solid var(--clr-bookmark);
     padding: 1rem 2rem;
     box-shadow: 5px 5px 10px 0px rgb(0, 0, 0, 0.6);
 
     &&:hover {
-        background-color: var(--color4);
+        background-color: var(--clr-bg);
     }
 }
 
@@ -69,7 +78,16 @@ header {
     flex-direction: column;
     align-items: flex-end;
     gap: 1rem;
-    margin: 1rem;
+    margin: 1rem 2rem;
+}
+
+.modal-actions {
+    text-align: end;
+    padding: 1rem;
+
+    button {
+        padding: 0.2rem 1rem;
+    }
 }
 
 .icon {
@@ -85,10 +103,10 @@ header {
     text-align: end;
 
     :nth-child(1):hover {
-        background-color: var(--color2);
+        background-color: var(--clr-greenish);
     }
 
     :nth-child(2):hover {
-        background-color: var(--color5);
+        background-color: var(--clr-danger);
     }
 }

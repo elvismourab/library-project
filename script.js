@@ -1,14 +1,9 @@
 const myLibrary = [
     { id: crypto.randomUUID(), title: "The Hobbit", author: "J.R.R. Tolkien", pages: 310, isRead: true },
     { id: crypto.randomUUID(), title: "Neuromancer", author: "William Gibson", pages: 271, isRead: false },
-    { id: crypto.randomUUID(), title: "Dune", author: "Frank Herbert", pages: 412, isRead: true },
-    { id: crypto.randomUUID(), title: "Project Hail Mary", author: "Andy Weir", pages: 496, isRead: false },
-    { id: crypto.randomUUID(), title: "Tomorrow, and Tomorrow, and Tomorrow", author: "Gabrielle Zevin", pages: 416, isRead: true },
+    { id: crypto.randomUUID(), title: "Crime and Punishment", author: "Fyodor Dostoevsky", pages: 671, isRead: false },
     { id: crypto.randomUUID(), title: "Dom Casmurro", author: "Machado de Assis", pages: 256, isRead: true },
     { id: crypto.randomUUID(), title: "1984", author: "George Orwell", pages: 328, isRead: false },
-    { id: crypto.randomUUID(), title: "Pride and Prejudice", author: "Jane Austen", pages: 432, isRead: true },
-    { id: crypto.randomUUID(), title: "Crime and Punishment", author: "Fyodor Dostoevsky", pages: 671, isRead: false },
-    { id: crypto.randomUUID(), title: "The Little Prince", author: "Antoine de Saint-Exupéry", pages: 96, isRead: true }
 ];
 
 function Book(
