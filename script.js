@@ -36,11 +36,22 @@ function addBookToLibrary() {
     renderBooks();
 }
 
-function rmBookFromLibrary(e) {
+function removeBookFromLibrary(e) {
     const id = e.target.closest(".card").dataset.id;
     const index = myLibrary.findIndex(book => book.id === id);
     myLibrary.splice(index, 1);
     renderBooks();
+}
+
+function readBookFromLibrary(e) {
+    const id = e.target.closest(".card").dataset.id;
+    const index = myLibrary.findIndex(book => book.id === id);
+    if (myLibrary[index].isRead) {
+        alert("You already read this book!");
+    } else {
+        myLibrary[index].isRead = true
+        renderBooks();
+    }
 }
 
 function renderBooks() {
@@ -54,17 +65,25 @@ function renderBooks() {
                     <li>${book.isRead}</li>
                     <li>${book.number}</li>
                 </ul>
-                <button class="rm-book">Delete</button>
+                <button class="read-book">Mark as read</button>
+                <button class="remove-book">Delete</button>
             </div>`;
     }
 
     const bookshelf = document.getElementById("bookshelf");
     bookshelf.innerHTML = html; // xss !!!
 
-    const deleteBtn = document.getElementsByClassName("rm-book")
-    for (const rmBook of deleteBtn) {
-        rmBook.addEventListener("click", (e) => {
-            rmBookFromLibrary(e);
+    const deleteBtn = document.getElementsByClassName("remove-book")
+    for (const removeBook of deleteBtn) {
+        removeBook.addEventListener("click", (e) => {
+            removeBookFromLibrary(e);
+        })
+    }
+
+    const readBtn = document.getElementsByClassName("read-book")
+    for (const readBook of readBtn) {
+        readBook.addEventListener("click", (e) => {
+            readBookFromLibrary(e);
         })
     }
 }
