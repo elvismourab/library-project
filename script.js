@@ -107,14 +107,24 @@ function renderModal() {
         modalDialog.showModal();
     })
 
+    modalDialog.addEventListener("close", () => {
+        clearModal(modalDialog);
+    })
+
     cancelBtn.addEventListener("click", () => {
-        modalDialog.close();
+        clearModal(modalDialog);
     });
 
     addBook.addEventListener("submit", (e) => {
         e.preventDefault();
         addBookToLibrary();
+        clearModal(modalDialog);
     })
+}
+
+function clearModal(modalDialog) {
+    modalDialog.close();
+    document.getElementById("add-book").reset();
 }
 
 renderBooks();
