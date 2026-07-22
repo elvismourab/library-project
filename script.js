@@ -1,14 +1,20 @@
 const myLibrary = [
-    { id: crypto.randomUUID(), title: "The Hobbit", author: "J.R.R. Tolkien", number: 1, isRead: true },
-    { id: crypto.randomUUID(), title: "Neuromancer", author: "William Gibson", number: 2, isRead: false },
-    { id: crypto.randomUUID(), title: "Dune", author: "Frank Herbert", number: 3, isRead: true },
-    { id: crypto.randomUUID(), title: "Project Hail Mary", author: "Andy Weir", number: 4, isRead: false },
-    { id: crypto.randomUUID(), title: "Tomorrow, and Tomorrow, and Tomorrow", author: "Gabrielle Zevin", number: 5, isRead: true }
+    { id: crypto.randomUUID(), title: "The Hobbit", author: "J.R.R. Tolkien", pages: 310, isRead: true },
+    { id: crypto.randomUUID(), title: "Neuromancer", author: "William Gibson", pages: 271, isRead: false },
+    { id: crypto.randomUUID(), title: "Dune", author: "Frank Herbert", pages: 412, isRead: true },
+    { id: crypto.randomUUID(), title: "Project Hail Mary", author: "Andy Weir", pages: 496, isRead: false },
+    { id: crypto.randomUUID(), title: "Tomorrow, and Tomorrow, and Tomorrow", author: "Gabrielle Zevin", pages: 416, isRead: true },
+    { id: crypto.randomUUID(), title: "Dom Casmurro", author: "Machado de Assis", pages: 256, isRead: true },
+    { id: crypto.randomUUID(), title: "1984", author: "George Orwell", pages: 328, isRead: false },
+    { id: crypto.randomUUID(), title: "Pride and Prejudice", author: "Jane Austen", pages: 432, isRead: true },
+    { id: crypto.randomUUID(), title: "Crime and Punishment", author: "Fyodor Dostoevsky", pages: 671, isRead: false },
+    { id: crypto.randomUUID(), title: "The Little Prince", author: "Antoine de Saint-Exupéry", pages: 96, isRead: true }
 ];
 
 function Book(
     title,
     author,
+    pages,
     isRead,
 ) {
     if (!new.target) {
@@ -18,7 +24,7 @@ function Book(
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
-    this.number = myLibrary.length + 1;
+    this.pages = pages;
     this.isRead = isRead;
 
     this.archieve = function () {
@@ -29,9 +35,10 @@ function Book(
 function addBookToLibrary() {
     const title = document.getElementById("book-title").value;
     const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
     const isRead = document.getElementById("is-read").checked;
 
-    const newBook = new Book(title, author, isRead);
+    const newBook = new Book(title, author, pages, isRead);
     newBook.archieve();
     renderBooks();
 }
@@ -63,7 +70,7 @@ function renderBooks() {
                 <ul>
                     <li>Author: ${book.author}</li>
                     <li>Read? ${book.isRead ? 'YES' : 'NO'}</li>
-                    <li>Code: ${book.number}</li>
+                    <li>Pages: ${book.pages}</li>
                 </ul>
                 <div class="book-actions">
                     <button class="read-book">Mark as read</button>
