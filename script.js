@@ -21,7 +21,7 @@ function Book(
     this.number = myLibrary.length + 1;
     this.isRead = isRead;
 
-    this.archieve = function() {
+    this.archieve = function () {
         myLibrary.push(this);
     }
 }
@@ -33,7 +33,14 @@ function addBookToLibrary() {
 
     const newBook = new Book(title, author, isRead);
     newBook.archieve();
-    console.log(newBook);
+    renderBooks();
+}
+
+function rmBookFromLibrary(e) {
+    const id = e.target.closest(".card").dataset.id;
+    const index = myLibrary.findIndex(book => book.id === id);
+    myLibrary.splice(index, 1);
+    renderBooks();
 }
 
 function renderBooks() {
@@ -41,17 +48,25 @@ function renderBooks() {
     for (const book of myLibrary) {
         html +=
             `<div class="card" data-id="${book.id}">
-            <h2>${book.title}</h2>
-            <ul>
-                <li>${book.author}</li>
-                <li>${book.isRead}</li>
-                <li>${book.number}</li>
-            </ul>
-        </div>`;
+                <h2>${book.title}</h2>
+                <ul>
+                    <li>${book.author}</li>
+                    <li>${book.isRead}</li>
+                    <li>${book.number}</li>
+                </ul>
+                <button class="rm-book">Delete</button>
+            </div>`;
     }
 
     const bookshelf = document.getElementById("bookshelf");
     bookshelf.innerHTML = html; // xss !!!
+
+    const deleteBtn = document.getElementsByClassName("rm-book")
+    for (const rmBook of deleteBtn) {
+        rmBook.addEventListener("click", (e) => {
+            rmBookFromLibrary(e);
+        })
+    }
 }
 
 function renderModal() {
