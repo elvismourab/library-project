@@ -61,12 +61,14 @@ function renderBooks() {
             `<div class="card" data-id="${book.id}">
                 <h2>${book.title}</h2>
                 <ul>
-                    <li>${book.author}</li>
-                    <li>${book.isRead}</li>
-                    <li>${book.number}</li>
+                    <li>Author: ${book.author}</li>
+                    <li>Read? ${book.isRead ? 'YES' : 'NO'}</li>
+                    <li>Code: ${book.number}</li>
                 </ul>
-                <button class="read-book">Mark as read</button>
-                <button class="remove-book">Delete</button>
+                <div class="book-actions">
+                    <button class="read-book">Mark as read</button>
+                    <button class="remove-book">Delete</button>
+                </div>
             </div>`;
     }
 
