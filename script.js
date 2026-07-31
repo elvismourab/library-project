@@ -30,7 +30,7 @@ function addBookToLibrary() {
 
     const newBook = new Book(title, author, Number(pages), isRead);
     myLibrary.push(newBook);
-    renderBooks();
+    renderTable();
 }
 
 function removeBookFromLibrary(id) {
@@ -38,70 +38,16 @@ function removeBookFromLibrary(id) {
         const index = myLibrary.findIndex(book => book.id === id);
         if (index !== -1) {
             myLibrary.splice(index, 1);
-            renderBooks();
+            renderTable();
         }
-    }
-}
-
-function renderBooks() {
-    const bookshelf = document.getElementById("bookshelf");
-    bookshelf.textContent = '';
-
-    for (const book of myLibrary) {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.dataset.id = book.id;
-
-        const h2 = document.createElement("h2");
-        h2.textContent = book.title;
-
-        const ul = document.createElement("ul");
-
-        const liAuthor = document.createElement("li");
-        liAuthor.textContent = `Author: ${book.author}`;
-
-        const liRead = document.createElement("li");
-        liRead.textContent = `Read? ${book.isRead ? 'YES' : 'NO'}`;
-
-        const liPages = document.createElement("li");
-        liPages.textContent = `Pages: ${book.pages}`;
-
-        ul.appendChild(liAuthor);
-        ul.appendChild(liRead);
-        ul.appendChild(liPages);
-
-        const actionsDiv = document.createElement("div");
-        actionsDiv.classList.add("book-actions");
-
-        const markAsReadIcon = document.createElement("img");
-        markAsReadIcon.src = "icons/book-check.svg";
-        markAsReadIcon.classList.add("icon", "read-book");
-        if (book.isRead) {
-            markAsReadIcon.classList.add("is-read");
-        }
-        markAsReadIcon.alt = book.isRead ? "Mark as unread" : "Mark as read";
-        markAsReadIcon.title = book.isRead ? "Mark as unread" : "Mark as read";
-
-        const removeIcon = document.createElement("img");
-        removeIcon.src = "icons/book-remove.svg";
-        removeIcon.classList.add("icon", "remove-book");
-        removeIcon.alt = "Delete from library";
-        removeIcon.title = "Delete from library";
-
-        actionsDiv.appendChild(markAsReadIcon);
-        actionsDiv.appendChild(removeIcon);
-
-        card.appendChild(h2);
-        card.appendChild(ul);
-        card.appendChild(actionsDiv);
-
-        bookshelf.appendChild(card);
     }
 }
 
 function renderTable() {
-    const newTable = document.getElementById("new-table");
-    const tBody = document.createElement("tbody");
+    const tBody = document.getElementById("library-body");
+    tBody.textContent = '';
+
+    const fragment = document.createDocumentFragment();
 
     for (const book of myLibrary) {
         const tr = document.createElement("tr");
@@ -117,37 +63,58 @@ function renderTable() {
         pages.textContent = book.pages;
 
         const isRead = document.createElement("td");
-        isRead.textContent = book.isRead
+        isRead.textContent = book.isRead ? "✔️" : "❌";
+
+        const actionsDiv = document.createElement("div");
+        actionsDiv.classList.add("book-actions");
+
+        const markAsReadIcon = document.createElement("img");
+        markAsReadIcon.src = book.isRead ? "icons/book-remove.svg" : "icons/book-check.svg";
+        markAsReadIcon.classList.add("icon", "read-book");
+        if (book.isRead) {
+            markAsReadIcon.classList.add("is-read");
+        }
+        markAsReadIcon.alt = book.isRead ? "Mark as unread" : "Mark as read";
+        markAsReadIcon.title = book.isRead ? "Mark as unread" : "Mark as read";
+
+        const removeIcon = document.createElement("img");
+        removeIcon.src = "icons/trash-can.svg";
+        removeIcon.classList.add("icon", "remove-book");
+        removeIcon.alt = "Delete from library";
+        removeIcon.title = "Delete from library";
+
+        actionsDiv.appendChild(markAsReadIcon);
+        actionsDiv.appendChild(removeIcon);
 
         tr.appendChild(title);
         tr.appendChild(author);
         tr.appendChild(pages);
         tr.appendChild(isRead);
-        tBody.appendChild(tr);
+        tr.appendChild(actionsDiv);
+        fragment.appendChild(tr);
     }
 
-    newTable.appendChild(tBody);
+    tBody.appendChild(fragment);
 
 }
 
 function initEvents() {
     const bookshelf = document.getElementById("bookshelf");
 
-    // Event delegation on bookshelf container
     bookshelf.addEventListener("click", (e) => {
         const removeBtn = e.target.closest(".remove-book");
         const readBtn = e.target.closest(".read-book");
-        const card = e.target.closest(".card");
+        const tr = e.target.closest("tr");
 
-        if (!card) return;
-        const id = card.dataset.id;
+        if (!tr) return;
+        const id = tr.dataset.id;
         const book = myLibrary.find(b => b.id === id);
 
         if (removeBtn) {
             removeBookFromLibrary(id);
         } else if (readBtn && book) {
             book.toggleRead();
-            renderBooks();
+            renderTable();
         }
     });
 
@@ -184,7 +151,5 @@ function clearModal(modalDialog) {
     document.getElementById("add-book").reset();
 }
 
-renderBooks();
 renderTable();
-
 initEvents();
