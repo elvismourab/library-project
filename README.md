@@ -32,9 +32,3 @@ This project is part of the curriculum for [The Odin Project](https://www.theodi
 1. Clone the repository.
 2. Enter the directory.
 3. Open `index.html` in your browser.
-
----
-
-- foco no checkbox do modal;
-- on hoover em cada linha da tabela;
----

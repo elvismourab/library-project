@@ -75,6 +75,13 @@ main {
     }
 }
 
+thead th {
+  position: sticky;
+  background-color: var(--clr-bg);
+  top: 0;
+  z-index: 1;
+}
+
 tbody tr:hover {
     background-color: var(--clr-bg);
 }
