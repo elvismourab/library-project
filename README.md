@@ -35,8 +35,6 @@ This project is part of the curriculum for [The Odin Project](https://www.theodi
 
 ---
 
-4. Fonte courier new; / estilo como uma lista profissional - remover estilos inutilizados / simplificar - ver root;
-5. lista centralizada ou alinhada à esquerda? - preciso testar;
 - foco no checkbox do modal;
 - on hoover em cada linha da tabela;
 ---

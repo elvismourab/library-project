@@ -1,6 +1,4 @@
 :root {
-    --clr-bookmark: #75372d;
-    --clr-bg2: #96a782;
     --clr-bg: #d4ce9e;
     --clr-greenish: #928854;
     --clr-danger: #d8523d;
@@ -27,6 +25,11 @@ header {
     }
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+}
+
 .btn-icon {
     background: transparent;
     border: none;
@@ -40,7 +43,7 @@ header {
     border-radius: 2rem;
 
     &:hover {
-        background-color: var(--clr-bg2);
+        background-color: var(--clr-bg);
     }
 
     .icon {
@@ -63,21 +66,17 @@ header {
 }
 
 #bookshelf {
-    border: 1px solid black;
+    border: 1px solid;
+
+    td,
+    div {
+        border-top: 1px solid;
+        text-align: center;
+    }
 }
 
-.card {
-    display: grid;
-    align-content: space-between;
-    min-height: 12rem;
-    border-radius: 1rem;
-    border-left: 1rem solid var(--clr-bookmark);
-    padding: 1rem 2rem;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.6);
-
-    &:hover {
-        background-color: var(--clr-bg);
-    }
+tbody tr:hover {
+    background-color: var(--clr-bg);
 }
 
 .modal-info {
@@ -108,8 +107,6 @@ header {
 }
 
 .book-actions {
-    text-align: end;
-
     .icon:nth-child(1):hover {
         background-color: var(--clr-greenish);
     }
