@@ -32,3 +32,13 @@ This project is part of the curriculum for [The Odin Project](https://www.theodi
 1. Clone the repository.
 2. Enter the directory.
 3. Open `index.html` in your browser.
+
+---
+
+1. alterar html para a estrutura de lista com header lateral à esquerda.
+Sessões: Título, autor, páginas, lido? e ações;
+2. Ações tem marcar / desmarcar + remover (manter alerta);
+3. lido? tem success badge V ou X - evento altera essa marcação;
+4. Fonte courier new; / estilo como uma lista profissional;
+5. lista centralizada ou alinhada à esquerda? - preciso testar;
+---

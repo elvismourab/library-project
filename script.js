@@ -99,6 +99,37 @@ function renderBooks() {
     }
 }
 
+function renderTable() {
+    const newTable = document.getElementById("new-table");
+    const tBody = document.createElement("tbody");
+
+    for (const book of myLibrary) {
+        const tr = document.createElement("tr");
+        tr.dataset.id = book.id;
+
+        const title = document.createElement("td");
+        title.textContent = book.title;
+
+        const author = document.createElement("td");
+        author.textContent = book.author;
+
+        const pages = document.createElement("td");
+        pages.textContent = book.pages;
+
+        const isRead = document.createElement("td");
+        isRead.textContent = book.isRead
+
+        tr.appendChild(title);
+        tr.appendChild(author);
+        tr.appendChild(pages);
+        tr.appendChild(isRead);
+        tBody.appendChild(tr);
+    }
+
+    newTable.appendChild(tBody);
+
+}
+
 function initEvents() {
     const bookshelf = document.getElementById("bookshelf");
 
@@ -154,4 +185,6 @@ function clearModal(modalDialog) {
 }
 
 renderBooks();
+renderTable();
+
 initEvents();
