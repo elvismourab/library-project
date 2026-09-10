@@ -1,18 +1,18 @@
-function Book(title, author, pages, isRead) {
-    if (!new.target) {
-        throw new Error("You must use the 'new' operator to call the constructor");
+class Book {
+
+    constructor(title, author, pages, isRead) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead;
     }
 
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
-}
+    toggleRead() {
+        this.isRead = !this.isRead;
+    }
 
-Book.prototype.toggleRead = function () {
-    this.isRead = !this.isRead;
-};
+}
 
 const myLibrary = [
     new Book("The Hobbit", "J.R.R. Tolkien", 310, true),
